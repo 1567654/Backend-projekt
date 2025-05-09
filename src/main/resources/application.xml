@@ -32,6 +32,9 @@
     </bean>
 
     <!-- Templates -->
+    <bean id="hibernateTemplate"
+          class="org.springframework.orm.hibernate5.HibernateTemplate"
+          autowire="byType"/>
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
