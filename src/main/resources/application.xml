@@ -17,10 +17,10 @@
 
     <!-- Transaction Manager -->
     <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager"
           autowire="byType">
-
     </bean>
+
     <!-- DataSources -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -32,16 +32,13 @@
     </bean>
 
     <!-- Templates -->
-    <bean id="hibernateTemplate"
-          class="org.springframework.orm.hibernate5.HibernateTemplate"
-          autowire="byType"/>
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>se.yrgo.spring.domain</value>
+                <value>se.yrgo.domain</value>
             </list>
         </property>
         <property name="hibernateProperties">

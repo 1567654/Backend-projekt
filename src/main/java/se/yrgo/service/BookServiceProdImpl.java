@@ -32,16 +32,6 @@ public class BookServiceProdImpl implements BookService {
     }
 
     @Override
-    public Book getBookByAuthor(String author) {
-        return dao.findByAuthor(author);
-    }
-
-    @Override
-    public Book getBookByTitle(String title) {
-        return dao.findByTitle(title);
-    }
-
-    @Override
     public Book getBookByIsbn(String isbn) {
         return dao.findByIsbn(isbn);
     }
@@ -49,6 +39,11 @@ public class BookServiceProdImpl implements BookService {
     @Override
     public List<Book> getBooksByAuthor(String author) {
         return dao.findBooksByAuthor(author);
+    }
+
+    @Override
+    public List<Book> getBooksByTitle(String title) {
+        return dao.findBooksByTitle(title);
     }
 
     @Override

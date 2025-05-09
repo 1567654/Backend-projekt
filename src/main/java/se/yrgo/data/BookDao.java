@@ -9,8 +9,7 @@ public interface BookDao {
     public void delete(Book book);
     public void update(Book book);
     public Book findByIsbn(String isbn);
-    public Book findByTitle(String title);
-    public Book findByAuthor(String author);
     public List<Book> findAllBooks();
     public List<Book> findBooksByAuthor(String author);
+    public List<Book> findBooksByTitle(String title);
 }
