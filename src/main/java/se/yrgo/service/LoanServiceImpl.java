@@ -1,33 +1,33 @@
 package se.yrgo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import se.yrgo.data.LoanDao;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.Customer;
+import se.yrgo.domain.Loan;
 
 import java.util.List;
 
+@Transactional
+@Component("loanService")
 public class LoanServiceImpl implements LoanService {
-    private BookService bookService;
-    private CustomerService customerService;
+    @Autowired
+    private LoanDao dao;
 
-    public LoanServiceImpl(BookService bookService, CustomerService customerService) {
-        this.bookService = bookService;
-        this.customerService = customerService;
+    @Override
+    public void loan(Loan loan) {
+        dao.loan(loan);
     }
 
     @Override
-    public void borrowBooks(List<Book> books) {
-        // borrow books and remove books from stock
-        for (Book book : books) {
-            customerService.borrowBook(book);
-            bookService.deleteBook(book);
-        }
+    public void zeturn(Loan loan) {
+        dao.zeturn(loan);
     }
 
     @Override
-    public void returnBooks(List<Book> books) {
-        // remove book from customer and return it to stock
-        for (Book book : books) {
-            customerService.returnBook(book);
-            bookService.newBook(book);
-        }
+    public List<Loan> findLoansByCustomer(Customer customer) {
+        return dao.findLoansByCustomer(customer);
     }
 }
