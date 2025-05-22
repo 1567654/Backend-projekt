@@ -10,9 +10,11 @@ public class Loan {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "BOOK_ID")
     private Book book;
 
     @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     private LocalDate borrowDate;
@@ -32,6 +34,14 @@ public class Loan {
         this.book = book;
         this.borrowDate = borrowDate;
         this.lendingDays = lendingDays;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Book getBook() {

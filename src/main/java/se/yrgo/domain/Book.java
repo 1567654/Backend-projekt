@@ -26,6 +26,12 @@ public class Book {
         return id;
     }
 
+    public void updateFrom(Book updated) {
+        this.title = updated.getTitle();
+        this.author = updated.getAuthor();
+        this.isbn = updated.getIsbn();
+    }
+
     public String getAuthor() {
         return author;
     }

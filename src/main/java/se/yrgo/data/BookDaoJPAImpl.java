@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -29,9 +30,13 @@ public class BookDaoJPAImpl implements BookDao {
 
     @Override
     public Book findByIsbn(String isbn) {
+        try {
         return em.createQuery("SELECT book FROM Book book WHERE book.isbn = :isbn", Book.class)
                 .setParameter("isbn", isbn)
                 .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override

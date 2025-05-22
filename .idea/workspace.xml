@@ -5,21 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/data/BookDaoJPAImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/data/BookDaoJPAImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Loan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Loan.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2xPyXNlX9h4C0i9htSkmmVc5OEG" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -55,7 +66,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854042862</updated>
-      <workItem from="1747854044538" duration="655000" />
+      <workItem from="1747854044538" duration="1525000" />
+      <workItem from="1747857547795" duration="543000" />
+      <workItem from="1747860846383" duration="232000" />
+      <workItem from="1747898949297" duration="399000" />
+      <workItem from="1747937886332" duration="8087000" />
     </task>
     <servers />
   </component>
