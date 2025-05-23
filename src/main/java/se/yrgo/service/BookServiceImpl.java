@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBookByIsbn(String isbn) {
+    public Book findBookByIsbn(String isbn) {
         return dao.findByIsbn(isbn);
     }
 

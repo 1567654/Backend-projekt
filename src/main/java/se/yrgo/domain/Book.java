@@ -26,20 +26,25 @@ public class Book {
         return id;
     }
 
-    public void updateFrom(Book updated) {
-        this.title = updated.getTitle();
-        this.author = updated.getAuthor();
-        this.isbn = updated.getIsbn();
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
         return author;
     }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getIsbn() {
         return isbn;
     }
-    public String getTitle() {
-        return title;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     @Override

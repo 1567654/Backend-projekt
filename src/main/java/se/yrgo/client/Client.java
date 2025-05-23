@@ -2,22 +2,29 @@ package se.yrgo.client;
 
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
-import com.googlecode.lanterna.gui2.table.Table;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.Customer;
+import se.yrgo.domain.Loan;
 import se.yrgo.service.BookService;
 import se.yrgo.service.CustomerService;
 import se.yrgo.service.LoanService;
 
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Client {
     public static void main(String[] args) throws IOException {
         try (ClassPathXmlApplicationContext container =
                      new ClassPathXmlApplicationContext("application.xml")) {
+
+//            addNewCustomer(container.getBean(CustomerService.class));
+//            addNewBook(container.getBean(BookService.class));
+//            addNewLoan(container.getBean(LoanService.class), container.getBean(CustomerService.class), container.getBean(BookService.class));
+
+
             Screen screen = new DefaultTerminalFactory().createScreen();
             screen.startScreen();
 
@@ -28,19 +35,22 @@ public class Client {
 
             window.setComponent(panel);
             textGUI.addWindowAndWait(window);
-            
-//            Book test = new Book("Bajs", "Göran", "12345");
-//            BookService bookService = container.getBean(BookService.class);
-//            bookService.newBook(test);
-//
-//            Customer customer = new Customer("Göran Kungsson", "goran@kungsson.se");
-//            CustomerService customerService = container.getBean(CustomerService.class);
-//            customerService.newCustomer(customer);
-//
-//            Loan loan = new Loan(customer, test, LocalDate.now());
-//            LoanService loanService = container.getBean(LoanService.class);
-//            loanService.loan(loan);
         }
+    }
+
+    private static void addNewBook(BookService bookService) {
+        Book test = new Book("Bajs", "Göran", "12345");
+        bookService.newBook(test);
+    }
+
+    private static void addNewCustomer(CustomerService customerService) {
+        Customer customer = new Customer("Amadreus Coolsson", "amadreus@cool.se");
+        customerService.newCustomer(customer);
+    }
+
+    private static void addNewLoan(LoanService loanService, CustomerService customerService, BookService bookService) {
+        Loan loan = new Loan(customerService.findCustomerByEmail("amadreus@cool.se"), bookService.findBookByIsbn("12345"), LocalDate.now());
+        loanService.loan(loan);
     }
 
     private static Panel getPanel(WindowBasedTextGUI textGUI, BasicWindow window, ClassPathXmlApplicationContext container) {
@@ -66,9 +76,9 @@ public class Client {
 
         Button createButton = new Button("1. Create Book", () -> BookMenu.Create(textGUI, bookService));
         Button updateButton = new Button("2. Update Book", () -> BookMenu.Update(textGUI, bookService));
-        Button deleteButton = new Button("3. Delete Book", () -> showInfo(textGUI, "Delete customer (not implemented)"));
-        Button findBookByIdButton = new Button("4. Find Book By Id", () -> showInfo(textGUI, "Delete customer (not implemented)"));
-        Button showAllBooksButton = new Button("5. Show All Books", () -> showAllBooksMenu(textGUI, bookService));
+        Button deleteButton = new Button("3. Delete Book", () -> BookMenu.Delete(textGUI, bookService));
+        Button findBookByIdButton = new Button("4. Find Book By ISBN", () -> BookMenu.findBookByIsbn(textGUI, bookService));
+        Button showAllBooksButton = new Button("5. Show All Books", () -> BookMenu.showAllBooks(textGUI, bookService));
         Button backButton = new Button("Back", booksWindow::close);
 
         booksPanel.addComponent(createButton);
@@ -82,35 +92,18 @@ public class Client {
         textGUI.addWindowAndWait(booksWindow);
     }
 
-    private static void showAllBooksMenu(WindowBasedTextGUI textGUI, BookService bookService) {
-        BasicWindow allBooksWindow = new BasicWindow("All Books");
-        Panel booksPanel = new Panel(new GridLayout(1));
 
-        Table<String> table = new Table<String>("Id", "Title", "Author", "ISBN");
-        List<Book> allBooks = bookService.getBooks();
-        for(Book book : allBooks) {
-            table.getTableModel().addRow(String.valueOf(book.getId()), book.getTitle(), book.getAuthor(), book.getIsbn());
-        }
-        Button backButton = new Button("Back", allBooksWindow::close);
-
-        booksPanel.addComponent(table);
-
-        booksPanel.addComponent(backButton);
-
-        allBooksWindow.setComponent(booksPanel);
-        textGUI.addWindowAndWait(allBooksWindow);
-    }
 
     private static void openCustomersMenu(WindowBasedTextGUI textGUI, CustomerService customerService) {
         BasicWindow customerWindow = new BasicWindow("Customers");
 
         Panel customerPanel = new Panel(new GridLayout(1));
 
-        Button createButton = new Button("8. Create Customer", () -> showInfo(textGUI, "Create customer (not implemented)"));
-        Button updateButton = new Button("8. Update Customer", () -> showInfo(textGUI, "Update customer (not implemented)"));
-        Button deleteButton = new Button("9. Delete Customer", () -> showInfo(textGUI, "Delete customer (not implemented)"));
-        Button findCustomerByIdButton = new Button("9. Find Customer By Id", () -> showInfo(textGUI, "Delete customer (not implemented)"));
-        Button showAllCustomersButton = new Button("9. Show All Customers", () -> showInfo(textGUI, "Delete customer (not implemented)"));
+        Button createButton = new Button("1. Create Customer", () -> CustomerMenu.Create(textGUI, customerService));
+        Button updateButton = new Button("2. Update Customer", () -> showInfo(textGUI, "Update customer (not implemented)"));
+        Button deleteButton = new Button("3. Delete Customer", () -> showInfo(textGUI, "Delete customer (not implemented)"));
+        Button findCustomerByIdButton = new Button("4. Find Customer By Id", () -> showInfo(textGUI, "Delete customer (not implemented)"));
+        Button showAllCustomersButton = new Button("5. Show All Customers", () -> CustomerMenu.showAllCustomers(textGUI, customerService));
         Button backButton = new Button("Back", customerWindow::close);
 
         customerPanel.addComponent(createButton);

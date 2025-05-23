@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class CustomerDaoJPAImpl implements CustomerDao{
+public class CustomerDaoJPAImpl implements CustomerDao {
     @PersistenceContext
     private EntityManager em;
 
@@ -33,6 +33,14 @@ public class CustomerDaoJPAImpl implements CustomerDao{
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
+    @Override
+    public Customer findCustomerByEmail(String email) {
+        return em.createQuery("SELECT customer FROM Customer customer WHERE customer.email = :email", Customer.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
 
     @Override
     public List<Customer> findAllCustomers() {

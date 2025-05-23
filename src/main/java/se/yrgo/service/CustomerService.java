@@ -8,6 +8,7 @@ public interface CustomerService {
     public void newCustomer(Customer customer);
     public void deleteCustomer(Customer customer);
     public void updateCustomer(Customer customer);
-    public Customer getCustomerBy(int id);
+    public Customer findCustomerById(int id);
+    public Customer findCustomerByEmail(String email);
     public List<Customer> getCustomers();
 }

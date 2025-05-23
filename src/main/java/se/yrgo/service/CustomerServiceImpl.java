@@ -23,21 +23,26 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Customer customer) {
-
+        dao.delete(customer);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
-
+        dao.update(customer);
     }
 
     @Override
-    public Customer getCustomerBy(int id) {
-        return null;
+    public Customer findCustomerById(int id) {
+        return dao.findCustomerById(id);
+    }
+
+    @Override
+    public Customer findCustomerByEmail(String email) {
+        return dao.findCustomerByEmail(email);
     }
 
     @Override
     public List<Customer> getCustomers() {
-        return List.of();
+        return dao.findAllCustomers();
     }
 }
