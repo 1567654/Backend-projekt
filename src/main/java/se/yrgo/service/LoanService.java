@@ -9,5 +9,6 @@ import java.util.List;
 public interface LoanService {
     public void loan(Loan loan);
     public void zeturn(Loan loan);
+    public void returnAllLoansForCustomer(Customer customer);
     public List<Loan> findLoansByCustomer(Customer customer);
 }

@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDaoJPAImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDaoJPAImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/LoanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/LoanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/service/LoanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/service/LoanServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +75,8 @@
       <workItem from="1747898949297" duration="399000" />
       <workItem from="1747937886332" duration="8480000" />
       <workItem from="1747947592579" duration="32000" />
-      <workItem from="1747991109710" duration="6357000" />
+      <workItem from="1747991109710" duration="10455000" />
+      <workItem from="1748017380630" duration="645000" />
     </task>
     <servers />
   </component>

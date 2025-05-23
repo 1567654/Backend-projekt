@@ -27,6 +27,15 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public void returnAllLoansForCustomer(Customer customer) {
+        List<Loan> loans = findLoansByCustomer(customer);
+        for (Loan loan : loans) {
+            zeturn(loan);
+        }
+    }
+
+
+    @Override
     public List<Loan> findLoansByCustomer(Customer customer) {
         return dao.findLoansByCustomer(customer);
     }

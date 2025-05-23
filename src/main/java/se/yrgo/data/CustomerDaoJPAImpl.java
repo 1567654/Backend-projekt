@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Customer;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -29,16 +30,24 @@ public class CustomerDaoJPAImpl implements CustomerDao {
 
     @Override
     public Customer findCustomerById(int id) {
-        return em.createQuery("SELECT customer FROM Customer customer WHERE customer.id = :id", Customer.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            return em.createQuery("SELECT customer FROM Customer customer WHERE customer.id = :id", Customer.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
     public Customer findCustomerByEmail(String email) {
-        return em.createQuery("SELECT customer FROM Customer customer WHERE customer.email = :email", Customer.class)
-                .setParameter("email", email)
-                .getSingleResult();
+        try {
+            return em.createQuery("SELECT customer FROM Customer customer WHERE customer.email = :email", Customer.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
 
