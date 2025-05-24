@@ -1,15 +1,17 @@
 package se.yrgo.data;
 
 import org.springframework.stereotype.Repository;
+import se.yrgo.domain.Book;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Loan;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class LoanDaoJPAImpl implements LoanDao{
+public class LoanDaoJPAImpl implements LoanDao {
     @PersistenceContext
     private EntityManager em;
 
@@ -24,14 +26,38 @@ public class LoanDaoJPAImpl implements LoanDao{
     }
 
     @Override
-    public void extend(Loan loan) {
-        em.merge(loan);
-    }
-
-    @Override
     public List<Loan> findLoansByCustomer(Customer customer) {
         return em.createQuery("SELECT loan FROM Loan loan WHERE loan.customer = :customer", Loan.class)
                 .setParameter("customer", customer)
                 .getResultList();
+    }
+
+    @Override
+    public List<Loan> getAllLoans() {
+        return em.createQuery("SELECT loan from Loan loan").getResultList();
+    }
+
+    @Override
+    public void extendLoan(Loan loan) {
+        loan.extendLoan();
+        em.merge(loan);
+    }
+
+    @Override
+    public Loan getById(int id) {
+        return em.createQuery("SELECT loan FROM Loan loan WHERE loan.id = :id", Loan.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+    @Override
+    public Loan findByBook(Book book) {
+        try {
+            return em.createQuery("SELECT loan FROM Loan loan WHERE loan.book = :book", Loan.class)
+                    .setParameter("book", book)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

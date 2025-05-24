@@ -44,12 +44,20 @@ public class Loan {
         this.customer = customer;
     }
 
+    public void extendLoan() {
+        this.lendingDays += 30;
+    }
+
     public Book getBook() {
         return book;
     }
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public LocalDate getBorrowDate() {

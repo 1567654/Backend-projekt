@@ -48,12 +48,12 @@ public class Client {
     }
 
     private static void addNewCustomer(CustomerService customerService) {
-        Customer customer = new Customer("Amadreus Coolsson", "amadreus@cool.se");
+        Customer customer = new Customer("Amadreus Coolsson", "ama");
         customerService.newCustomer(customer);
     }
 
     private static void addNewLoan(CustomerService customerService, BookService bookService, LoanService loanService) {
-        Loan loan = new Loan(customerService.findCustomerByEmail("amadreus@cool.se"), bookService.findBookByIsbn("12345"), LocalDate.now());
+        Loan loan = new Loan(customerService.findCustomerByEmail("ama"), bookService.findBookByIsbn("12345"), LocalDate.now());
         loanService.loan(loan);
     }
 
@@ -125,7 +125,24 @@ public class Client {
     }
 
     private static void openLoansMenu(WindowBasedTextGUI textGUI, CustomerService customerService, BookService bookService, LoanService loanService) {
+        BasicWindow loanWindow = new BasicWindow("Loans");
 
+        Panel loanPanel = new Panel(new GridLayout(1));
+
+        Button createButton = new Button("1. Create Loan", () -> LoanMenu.create(textGUI, loanService, customerService, bookService));
+        Button updateButton = new Button("2. Extend Loan", () -> LoanMenu.extend(textGUI, loanService, customerService));
+        Button returnButton = new Button("3. Return Loan", () -> LoanMenu.zeturn(textGUI, loanService, customerService));
+        Button showAllLoansButton = new Button("4. View Customer Loans", () -> LoanMenu.viewCustomerLoans(textGUI, loanService, customerService));
+        Button backButton = new Button("Back", loanWindow::close);
+
+        loanPanel.addComponent(createButton);
+        loanPanel.addComponent(updateButton);
+        loanPanel.addComponent(returnButton);
+        loanPanel.addComponent(showAllLoansButton);
+        loanPanel.addComponent(backButton);
+
+        loanWindow.setComponent(loanPanel);
+        textGUI.addWindowAndWait(loanWindow);
     }
 
     private static void showInfo(WindowBasedTextGUI gui, String message) {

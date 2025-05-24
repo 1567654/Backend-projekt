@@ -64,7 +64,7 @@ public class CustomerMenu {
             Customer foundCustomer = customerService.findCustomerByEmail(customerEmail.getText());
 
             if (foundCustomer == null) {
-                MessageDialog.showMessageDialog(textGUI, "Customer Not Found", "No customer found with the given email.");
+
                 return;
             }
 

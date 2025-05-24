@@ -33,10 +33,28 @@ public class LoanServiceImpl implements LoanService {
             zeturn(loan);
         }
     }
-
+    @Override
+    public void extendLoan(Loan loan) {
+        dao.extendLoan(loan);
+    }
 
     @Override
     public List<Loan> findLoansByCustomer(Customer customer) {
         return dao.findLoansByCustomer(customer);
+    }
+
+    @Override
+    public Loan getById(int id) {
+        return dao.getById(id);
+    }
+
+    @Override
+    public List<Loan> getAllLoans() {
+        return dao.getAllLoans();
+    }
+
+    @Override
+    public Loan findByBook(Book book) {
+        return dao.findByBook(book);
     }
 }
