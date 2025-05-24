@@ -1,17 +1,27 @@
 package se.yrgo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
-// Inte klar
 @Entity
 public class BorrowedBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String title;
-    private String author;
-    
+    private Date returnDate;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Customer> customers;
+    @OneToOne
+    private Book book;
+
+    public BorrowedBook() {}
+
+    public BorrowedBook(Date returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public Book getBook() {
+        return book;
+    }
 }

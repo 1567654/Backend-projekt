@@ -2,11 +2,14 @@ package se.yrgo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.data.BookDao;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.BookEdition;
 
 import java.util.List;
 
+@Transactional
 @Service("bookService")
 public class BookServiceProdImpl implements BookService {
     private BookDao dao;
@@ -27,23 +30,18 @@ public class BookServiceProdImpl implements BookService {
     }
 
     @Override
-    public void updateBook(Book book) {
-        dao.update(book);
+    public Book getById(int id) {
+        return dao.findById(id);
     }
 
     @Override
-    public Book getBookByIsbn(String isbn) {
+    public BookEdition getByIsbn(String isbn) {
         return dao.findByIsbn(isbn);
     }
 
     @Override
-    public List<Book> getBooksByAuthor(String author) {
-        return dao.findBooksByAuthor(author);
-    }
-
-    @Override
-    public List<Book> getBooksByTitle(String title) {
-        return dao.findBooksByTitle(title);
+    public BookEdition getByAuthor(String author) {
+        return dao.findByAuthor(author);
     }
 
     @Override

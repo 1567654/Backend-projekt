@@ -2,6 +2,7 @@ package se.yrgo.data;
 
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.BookEdition;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,13 +24,15 @@ public class BookDaoJPAImpl implements BookDao {
     }
 
     @Override
-    public void update(Book book) {
-        em.merge(book);
+    public Book findById(int id) {
+        return em.createQuery("select b from Book b where b.id = :id", Book.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
-    public Book findByIsbn(String isbn) {
-        return em.createQuery("SELECT book FROM Book book WHERE book.isbn = :isbn", Book.class)
+    public BookEdition findByIsbn(String isbn) {
+        return em.createQuery("SELECT book FROM Book book WHERE book.isbn = :isbn", BookEdition.class)
                 .setParameter("isbn", isbn)
                 .getSingleResult();
     }
@@ -41,16 +44,10 @@ public class BookDaoJPAImpl implements BookDao {
     }
 
     @Override
-    public List<Book> findBooksByAuthor(String author) {
-        return em.createQuery("SELECT book FROM Book book WHERE book.author = :author", Book.class)
+    public BookEdition findByAuthor(String author) {
+        return em.createQuery("SELECT book FROM Book book WHERE book.author = :author", BookEdition.class)
                 .setParameter("author", author)
-                .getResultList();
+                .getSingleResult();
     }
 
-    @Override
-    public List<Book> findBooksByTitle(String title) {
-        return em.createQuery("SELECT book FROM Book book WHERE book.title = :title", Book.class)
-                .setParameter("title", title)
-                .getResultList();
-    }
 }

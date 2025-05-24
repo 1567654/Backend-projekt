@@ -11,8 +11,8 @@ public class Customer {
     private int id;
     private String name;
     private String email;
-    @OneToMany
-    private List<Book> books = new ArrayList<Book>();
+    @ManyToMany(mappedBy = "customers")
+    private List<BorrowedBook> borrowedBooks = new ArrayList<>();
 
     public Customer() {}
     public Customer(String name, String email) {
@@ -29,13 +29,17 @@ public class Customer {
         return email;
     }
 
+    public List<BorrowedBook> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", books=" + books +
+                ", books=" + borrowedBooks +
                 '}';
     }
 }
