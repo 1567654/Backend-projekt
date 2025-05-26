@@ -64,11 +64,11 @@ public class CustomerMenu {
         TextBox customerEmail = new TextBox();
         searchPanel.addComponent(customerEmail);
 
-        Button findButton = new Button("Find");
-        searchPanel.addComponent(findButton);
-
         Button backButton = new Button("Back", searchWindow::close);
         searchPanel.addComponent(backButton);
+
+        Button findButton = new Button("Find");
+        searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
             Customer foundCustomer = customerService.findCustomerByEmail(customerEmail.getText());

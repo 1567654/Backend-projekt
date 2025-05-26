@@ -36,22 +36,21 @@
           class="org.springframework.orm.hibernate5.HibernateTemplate"
           autowire="byType"/>
 
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan">
-            <list>
-                <value>se.yrgo.domain</value>
-            </list>
+        <property name="packagesToScan" value="se.yrgo.domain"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true"/>
+                <property name="generateDdl" value="true"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.H2Dialect"/>
+            </bean>
         </property>
-        <property name="hibernateProperties">
+        <property name="jpaProperties">
             <props>
-                <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
             </props>
         </property>
-
     </bean>
 
     <bean id="jdbcTemplate"
