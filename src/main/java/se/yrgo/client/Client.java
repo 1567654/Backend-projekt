@@ -43,17 +43,17 @@ public class Client {
     }
 
     private static void addNewBook(BookService bookService) {
-        Book test = new Book("Bajs", "Göran", "12345");
+        Book test = new Book("Middlemarch", "George Eliot", "123");
         bookService.newBook(test);
     }
 
     private static void addNewCustomer(CustomerService customerService) {
-        Customer customer = new Customer("Amadreus Coolsson", "ama");
+        Customer customer = new Customer("Hampus Ram", "hampus@ramson.ru");
         customerService.newCustomer(customer);
     }
 
     private static void addNewLoan(CustomerService customerService, BookService bookService, LoanService loanService) {
-        Loan loan = new Loan(customerService.findCustomerByEmail("ama"), bookService.findBookByIsbn("12345"), LocalDate.now());
+        Loan loan = new Loan(customerService.findCustomerByEmail("hampus@ramson.ru"), bookService.findBookByIsbn("123"), LocalDate.now());
         loanService.loan(loan);
     }
 
