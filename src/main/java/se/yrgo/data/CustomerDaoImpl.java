@@ -20,7 +20,10 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void delete(Customer customer) {
-        em.remove(customer);
+        Customer managedCustomer = em.find(Customer.class, customer.getId());
+        if (managedCustomer != null) {
+            em.remove(managedCustomer);
+        }
     }
 
     @Override

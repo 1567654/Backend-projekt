@@ -5,10 +5,9 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.table.Table;
 import se.yrgo.domain.Customer;
+import se.yrgo.domain.Loan;
 import se.yrgo.service.CustomerService;
 import se.yrgo.service.LoanService;
-
-import javax.persistence.Basic;
 import java.util.List;
 
 import static se.yrgo.client.Utils.isNullOrEmpty;
@@ -74,7 +73,7 @@ public class CustomerMenu {
             Customer foundCustomer = customerService.findCustomerByEmail(customerEmail.getText());
 
             if (foundCustomer == null) {
-
+                MessageDialog.showMessageDialog(textGUI, "Not Found", "No customer found with the given email.");
                 return;
             }
 
@@ -168,7 +167,8 @@ public class CustomerMenu {
             Button deleteButton = new Button("Delete", () -> {
                 Customer customerToDelete = customerService.findCustomerByEmail(customerEmail.getText());
 
-                if (loanService.findLoansByCustomer(customerToDelete) != null) {
+                List<Loan> loans = loanService.findLoansByCustomer(customerToDelete);
+                if (loans != null && !loans.isEmpty()) {
                     loanService.returnAllLoansForCustomer(customerToDelete);
                 }
 

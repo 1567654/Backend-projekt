@@ -124,7 +124,13 @@ public class BookMenu {
                     existingBook.setAuthor(author.getText());
                 }
                 if (!isNullOrEmpty(isbn.getText())) {
-                    existingBook.setIsbn(isbn.getText());
+                    String newIsbn = isbn.getText();
+                    Book bookWithSameIsbn = bookService.findBookByIsbn(newIsbn);
+                    if (bookWithSameIsbn != null && bookWithSameIsbn.getId() != existingBook.getId()) {
+                        MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                        return;
+                    }
+                    existingBook.setIsbn(newIsbn);
                 }
                 bookService.updateBook(existingBook);
                 updateBookWindow.close();

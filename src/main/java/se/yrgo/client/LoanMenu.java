@@ -38,6 +38,11 @@ public class LoanMenu {
             Customer customer = customerService.findCustomerByEmail(customerEmail.getText());
             Book book = bookService.findBookByIsbn(bookIsbn.getText());
 
+            if (customer == null || book == null) {
+                MessageDialog.showMessageDialog(textGUI, "Error", "Customer or Book not found.");
+                return;
+            }
+
             if (loanService.findByBook(book) != null) {
                 MessageDialog.showMessageDialog(textGUI, "Book not available", "Book has already been lent out");
                 return;
@@ -45,6 +50,7 @@ public class LoanMenu {
 
             Loan newLoan = new Loan(customer, book, LocalDate.now());
             loanService.loan(newLoan);
+            MessageDialog.showMessageDialog(textGUI, "Success", "Loan was successfully created.");
             createLoanWindow.close();
         });
         createLoanPanel.addComponent(createButton);
