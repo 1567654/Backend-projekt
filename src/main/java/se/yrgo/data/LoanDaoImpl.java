@@ -1,10 +1,12 @@
 package se.yrgo.data;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.domain.Book;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Loan;
+import se.yrgo.exceptions.NonExistantLoanException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -31,14 +33,22 @@ public class LoanDaoImpl implements LoanDao {
 
     @Override
     public List<Loan> findLoansByCustomer(Customer customer) {
+        try {
         return em.createQuery("SELECT loan FROM Loan loan WHERE loan.customer = :customer", Loan.class)
                 .setParameter("customer", customer)
                 .getResultList();
+        }catch (NoResultException | IllegalStateException e) {
+            throw new NonExistantLoanException();
+        }
     }
 
     @Override
     public List<Loan> getAllLoans() {
-        return em.createQuery("SELECT loan from Loan loan").getResultList();
+        try {
+            return em.createQuery("SELECT loan from Loan loan").getResultList();
+        }catch (NoResultException | IllegalStateException e) {
+            throw new NonExistantLoanException();
+        }
     }
 
     @Override
@@ -49,9 +59,13 @@ public class LoanDaoImpl implements LoanDao {
 
     @Override
     public Loan getById(int id) {
-        return em.createQuery("SELECT loan FROM Loan loan WHERE loan.id = :id", Loan.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+            return em.createQuery("SELECT loan FROM Loan loan WHERE loan.id = :id", Loan.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        }catch (NoResultException | IllegalStateException e) {
+            throw new NonExistantLoanException();
+        }
     }
 
     @Override
@@ -60,8 +74,8 @@ public class LoanDaoImpl implements LoanDao {
             return em.createQuery("SELECT loan FROM Loan loan WHERE loan.book = :book", Loan.class)
                     .setParameter("book", book)
                     .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
+        }catch (NoResultException | IllegalStateException e) {
+            throw new NonExistantLoanException();
         }
     }
 }

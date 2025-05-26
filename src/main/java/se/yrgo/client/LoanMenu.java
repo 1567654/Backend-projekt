@@ -43,9 +43,11 @@ public class LoanMenu {
                 return;
             }
 
-            if (loanService.findByBook(book) != null) {
-                MessageDialog.showMessageDialog(textGUI, "Book not available", "Book has already been lent out");
-                return;
+            for (Loan loan : loanService.getAllLoans()) {
+                if (loan.getBook().equals(book)) {
+                    MessageDialog.showMessageDialog(textGUI, "Book not available", "Book has already been lent out");
+                    return;
+                }
             }
 
             Loan newLoan = new Loan(customer, book, LocalDate.now());

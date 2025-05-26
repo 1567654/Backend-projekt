@@ -45,9 +45,11 @@ public class BookMenu {
 
         create.addListener(button -> {
             String newIsbn = isbn.getText();
-            if (bookService.findBookByIsbn(newIsbn) != null) {
-                MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
-                return;
+            for (Book book : bookService.getBooks()) {
+                if (book.getIsbn().equals(newIsbn)) {
+                    MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                    return;
+                }
             }
             Book newBook = new Book(title.getText(), author.getText(), isbn.getText());
             bookService.newBook(newBook);
@@ -125,10 +127,11 @@ public class BookMenu {
                 }
                 if (!isNullOrEmpty(isbn.getText())) {
                     String newIsbn = isbn.getText();
-                    Book bookWithSameIsbn = bookService.findBookByIsbn(newIsbn);
-                    if (bookWithSameIsbn != null && bookWithSameIsbn.getId() != existingBook.getId()) {
-                        MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
-                        return;
+                    for (Book book : bookService.getBooks()) {
+                        if (book.getIsbn().equals(newIsbn)) {
+                            MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                            return;
+                        }
                     }
                     existingBook.setIsbn(newIsbn);
                 }
@@ -192,9 +195,10 @@ public class BookMenu {
 
             Button deleteButton = new Button("Delete", () -> {
                 Book bookToDelete = bookService.findBookByIsbn(bookIsbn.getText());
-                Loan loan = loanService.findByBook(bookToDelete);
-                if (loan != null) {
-                    loanService.zeturn(loan);
+                for (Loan loan : loanService.getAllLoans()) {
+                    if (loan.getBook().equals(bookToDelete)) {
+                        loanService.zeturn(loan);
+                    }
                 }
                 bookService.deleteBook(bookToDelete);
                 deleteBookWindow.close();
@@ -229,7 +233,12 @@ public class BookMenu {
         searchPanel.addComponent(cancelButton);
 
         findButton.addListener(button -> {
-            Book bookByIsbn = bookService.findBookByIsbn(bookIsbn.getText());
+            Book bookByIsbn = null;
+            for (Book book : bookService.getBooks()) {
+                if (book.getIsbn().equals(bookIsbn.getText())) {
+                    bookByIsbn = book;
+                }
+            }
 
             if (bookByIsbn == null) {
                 MessageDialog.showMessageDialog(textGUI, "Book Not Found", "No book found with the given ISBN.");

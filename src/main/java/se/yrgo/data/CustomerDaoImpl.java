@@ -1,7 +1,9 @@
 package se.yrgo.data;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Customer;
+import se.yrgo.exceptions.NonExistantCustomerException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -38,7 +40,7 @@ public class CustomerDaoImpl implements CustomerDao {
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (NoResultException e) {
-            return null;
+            throw new NonExistantCustomerException();
         }
     }
 
@@ -49,14 +51,18 @@ public class CustomerDaoImpl implements CustomerDao {
                     .setParameter("email", email)
                     .getSingleResult();
         } catch (NoResultException e) {
-            return null;
+            throw new NonExistantCustomerException();
         }
     }
 
 
     @Override
     public List<Customer> findAllCustomers() {
-        return em.createQuery("SELECT customer FROM Customer customer", Customer.class)
-                .getResultList();
+        try {
+            return em.createQuery("SELECT customer FROM Customer customer", Customer.class)
+                    .getResultList();
+        } catch (NoResultException e) {
+            throw new NonExistantCustomerException();
+        }
     }
 }
