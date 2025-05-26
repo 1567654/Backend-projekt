@@ -8,7 +8,9 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.table.Table;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.Loan;
 import se.yrgo.service.BookService;
+import se.yrgo.service.LoanService;
 
 import java.util.List;
 
@@ -137,7 +139,7 @@ public class BookMenu {
 
     }
 
-    public static void Delete(WindowBasedTextGUI textGUI, BookService bookService) {
+    public static void Delete(WindowBasedTextGUI textGUI, BookService bookService, LoanService loanService) {
         BasicWindow searchWindow = new BasicWindow("Find Book To Delete");
 
         Panel searchPanel = new Panel(new GridLayout(1));
@@ -179,6 +181,10 @@ public class BookMenu {
 
             Button deleteButton = new Button("Delete", () -> {
                 Book bookToDelete = bookService.findBookByIsbn(bookIsbn.getText());
+                Loan loan = loanService.findByBook(bookToDelete);
+                if (loan != null) {
+                    loanService.zeturn(loan);
+                }
                 bookService.deleteBook(bookToDelete);
                 deleteBookWindow.close();
                 searchWindow.close();

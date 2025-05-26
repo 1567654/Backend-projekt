@@ -84,7 +84,7 @@ public class Client {
 
         Button createButton = new Button("1. Create Book", () -> BookMenu.Create(textGUI, bookService));
         Button updateButton = new Button("2. Update Book", () -> BookMenu.Update(textGUI, bookService));
-        Button deleteButton = new Button("3. Delete Book", () -> BookMenu.Delete(textGUI, bookService));
+        Button deleteButton = new Button("3. Delete Book", () -> BookMenu.Delete(textGUI, bookService, loanService));
         Button findBookByIdButton = new Button("4. Find Book By ISBN", () -> BookMenu.findBookByIsbn(textGUI, bookService));
         Button showAllBooksButton = new Button("5. Show All Books", () -> BookMenu.showAllBooks(textGUI, bookService));
         Button backButton = new Button("Back", booksWindow::close);
