@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="" />
+    <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,6 +148,11 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
