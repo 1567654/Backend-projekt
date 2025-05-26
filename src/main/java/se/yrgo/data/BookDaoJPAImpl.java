@@ -1,7 +1,9 @@
 package se.yrgo.data;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
+import se.yrgo.exceptions.NonExistantBookException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -31,31 +33,43 @@ public class BookDaoJPAImpl implements BookDao {
     @Override
     public Book findByIsbn(String isbn) {
         try {
-        return em.createQuery("SELECT book FROM Book book WHERE book.isbn = :isbn", Book.class)
-                .setParameter("isbn", isbn)
-                .getSingleResult();
+            return em.createQuery("SELECT book FROM Book book WHERE book.isbn = :isbn", Book.class)
+                    .setParameter("isbn", isbn)
+                    .getSingleResult();
         } catch (NoResultException e) {
-            return null;
+            throw new NonExistantBookException();
         }
     }
 
     @Override
     public List<Book> findAllBooks() {
-        return em.createQuery("SELECT book FROM Book book", Book.class)
+        try {
+            return em.createQuery("SELECT book FROM Book book", Book.class)
                 .getResultList();
+        } catch (NoResultException e) {
+            throw new NonExistantBookException();
+        }
     }
 
     @Override
     public List<Book> findBooksByAuthor(String author) {
-        return em.createQuery("SELECT book FROM Book book WHERE book.author = :author", Book.class)
-                .setParameter("author", author)
-                .getResultList();
+        try {
+            return em.createQuery("SELECT book FROM Book book WHERE book.author = :author", Book.class)
+                    .setParameter("author", author)
+                    .getResultList();
+        } catch (NoResultException e) {
+            throw new NonExistantBookException();
+        }
     }
 
     @Override
     public List<Book> findBooksByTitle(String title) {
-        return em.createQuery("SELECT book FROM Book book WHERE book.title = :title", Book.class)
-                .setParameter("title", title)
-                .getResultList();
+        try {
+            return em.createQuery("SELECT book FROM Book book WHERE book.title = :title", Book.class)
+                    .setParameter("title", title)
+                    .getResultList();
+        } catch (EmptyResultDataAccessException e) {
+            throw new NonExistantBookException();
+        }
     }
 }

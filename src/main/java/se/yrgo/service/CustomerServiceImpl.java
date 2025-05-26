@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.data.CustomerDao;
 import se.yrgo.domain.Customer;
+import se.yrgo.exceptions.NonExistantCustomerException;
 
 import java.util.List;
 

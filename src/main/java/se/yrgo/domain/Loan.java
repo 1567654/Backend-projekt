@@ -2,6 +2,7 @@ package se.yrgo.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Loan {
@@ -66,5 +67,29 @@ public class Loan {
 
     public int getLendingDays() {
         return lendingDays;
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "id=" + id +
+                ", book=" + book +
+                ", customer=" + customer +
+                ", borrowDate=" + borrowDate +
+                ", lendingDays=" + lendingDays +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Loan loan = (Loan) o;
+        return id == loan.id && lendingDays == loan.lendingDays && Objects.equals(book, loan.book) && Objects.equals(customer, loan.customer) && Objects.equals(borrowDate, loan.borrowDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, book, customer, borrowDate, lendingDays);
     }
 }

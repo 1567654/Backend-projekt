@@ -1,6 +1,7 @@
 package se.yrgo.service;
 
 import se.yrgo.domain.Book;
+import se.yrgo.exceptions.NonExistantBookException;
 
 import java.util.List;
 

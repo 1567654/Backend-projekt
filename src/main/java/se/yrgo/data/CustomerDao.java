@@ -1,6 +1,7 @@
 package se.yrgo.data;
 
 import se.yrgo.domain.Customer;
+import se.yrgo.exceptions.NonExistantCustomerException;
 
 import java.util.List;
 
