@@ -44,6 +44,11 @@ public class BookMenu {
         createBookPanel.addComponent(backButton);
 
         create.addListener(button -> {
+            String newIsbn = isbn.getText();
+            if (bookService.findBookByIsbn(newIsbn) != null) {
+                MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                return;
+            }
             Book newBook = new Book(title.getText(), author.getText(), isbn.getText());
             bookService.newBook(newBook);
             createBookWindow.close();

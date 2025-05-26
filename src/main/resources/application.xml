@@ -65,6 +65,16 @@
     <!-- Transaction Configuration -->
     <tx:annotation-driven/>
     <context:component-scan base-package="se.yrgo"/>
-</beans>
 
+    <!-- PerformanceTimingAdvice bean -->
+    <bean id="performanceTimingAdvice" class="se.yrgo.advice.PerformanceTimingAdvice"/>
+
+    <!-- AOP configuration -->
+    <aop:config>
+        <aop:aspect ref="performanceTimingAdvice">
+            <aop:around method="performanceTimingMeasurement"
+                        pointcut="execution(* se.yrgo.service..*(..)) || execution(* se.yrgo.data..*(..))"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
 
