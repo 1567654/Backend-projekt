@@ -2,18 +2,20 @@ package se.yrgo.data;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.domain.Book;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Loan;
 import se.yrgo.exceptions.NonExistantLoanException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class LoanDaoJPAImpl implements LoanDao {
+public class LoanDaoImpl implements LoanDao {
     @PersistenceContext
     private EntityManager em;
 
@@ -23,8 +25,10 @@ public class LoanDaoJPAImpl implements LoanDao {
     }
 
     @Override
+    @Transactional
     public void zeturn(Loan loan) {
-        em.remove(loan);
+        Loan managedLoan = em.merge(loan);
+        em.remove(managedLoan);
     }
 
     @Override

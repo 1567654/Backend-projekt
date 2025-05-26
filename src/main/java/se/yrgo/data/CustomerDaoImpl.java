@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class CustomerDaoJPAImpl implements CustomerDao {
+public class CustomerDaoImpl implements CustomerDao {
     @PersistenceContext
     private EntityManager em;
 
@@ -22,7 +22,10 @@ public class CustomerDaoJPAImpl implements CustomerDao {
 
     @Override
     public void delete(Customer customer) {
-        em.remove(customer);
+        Customer managedCustomer = em.find(Customer.class, customer.getId());
+        if (managedCustomer != null) {
+            em.remove(managedCustomer);
+        }
     }
 
     @Override

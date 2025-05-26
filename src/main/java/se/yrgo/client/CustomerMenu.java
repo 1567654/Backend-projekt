@@ -5,10 +5,9 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.table.Table;
 import se.yrgo.domain.Customer;
+import se.yrgo.domain.Loan;
 import se.yrgo.service.CustomerService;
 import se.yrgo.service.LoanService;
-
-import javax.persistence.Basic;
 import java.util.List;
 
 import static se.yrgo.client.Utils.isNullOrEmpty;
@@ -37,7 +36,17 @@ public class CustomerMenu {
         createCustomerPanel.addComponent(cancelButton);
 
         createButton.addListener(button -> {
-            Customer newCustomer = new Customer(name.getText(), email.getText());
+            String enteredEmail = email.getText();
+            String enteredName = name.getText();
+            if (isNullOrEmpty(enteredName)) {
+                MessageDialog.showMessageDialog(textGUI, "Invalid input", "Name cannot be empty");
+                return;
+            }
+            if (isNullOrEmpty(enteredEmail) || !enteredEmail.contains("@")) {
+                MessageDialog.showMessageDialog(textGUI, "Invalid email", "Email must contain '@'");
+                return;
+            }
+            Customer newCustomer = new Customer(enteredName, enteredEmail);
             customerService.newCustomer(newCustomer);
             createCustomerWindow.close();
         });
@@ -54,17 +63,17 @@ public class CustomerMenu {
         TextBox customerEmail = new TextBox();
         searchPanel.addComponent(customerEmail);
 
-        Button findButton = new Button("Find");
-        searchPanel.addComponent(findButton);
-
         Button backButton = new Button("Back", searchWindow::close);
         searchPanel.addComponent(backButton);
+
+        Button findButton = new Button("Find");
+        searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
             Customer foundCustomer = customerService.findCustomerByEmail(customerEmail.getText());
 
             if (foundCustomer == null) {
-
+                MessageDialog.showMessageDialog(textGUI, "Not Found", "No customer found with the given email.");
                 return;
             }
 
@@ -158,7 +167,8 @@ public class CustomerMenu {
             Button deleteButton = new Button("Delete", () -> {
                 Customer customerToDelete = customerService.findCustomerByEmail(customerEmail.getText());
 
-                if (loanService.findLoansByCustomer(customerToDelete) != null) {
+                List<Loan> loans = loanService.findLoansByCustomer(customerToDelete);
+                if (loans != null && !loans.isEmpty()) {
                     loanService.returnAllLoansForCustomer(customerToDelete);
                 }
 

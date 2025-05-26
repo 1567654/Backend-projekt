@@ -8,7 +8,9 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
 import com.googlecode.lanterna.gui2.table.Table;
 import se.yrgo.domain.Book;
+import se.yrgo.domain.Loan;
 import se.yrgo.service.BookService;
+import se.yrgo.service.LoanService;
 
 import java.util.List;
 
@@ -42,6 +44,11 @@ public class BookMenu {
         createBookPanel.addComponent(backButton);
 
         create.addListener(button -> {
+            String newIsbn = isbn.getText();
+            if (bookService.findBookByIsbn(newIsbn) != null) {
+                MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                return;
+            }
             Book newBook = new Book(title.getText(), author.getText(), isbn.getText());
             bookService.newBook(newBook);
             createBookWindow.close();
@@ -117,7 +124,13 @@ public class BookMenu {
                     existingBook.setAuthor(author.getText());
                 }
                 if (!isNullOrEmpty(isbn.getText())) {
-                    existingBook.setIsbn(isbn.getText());
+                    String newIsbn = isbn.getText();
+                    Book bookWithSameIsbn = bookService.findBookByIsbn(newIsbn);
+                    if (bookWithSameIsbn != null && bookWithSameIsbn.getId() != existingBook.getId()) {
+                        MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                        return;
+                    }
+                    existingBook.setIsbn(newIsbn);
                 }
                 bookService.updateBook(existingBook);
                 updateBookWindow.close();
@@ -137,7 +150,7 @@ public class BookMenu {
 
     }
 
-    public static void Delete(WindowBasedTextGUI textGUI, BookService bookService) {
+    public static void Delete(WindowBasedTextGUI textGUI, BookService bookService, LoanService loanService) {
         BasicWindow searchWindow = new BasicWindow("Find Book To Delete");
 
         Panel searchPanel = new Panel(new GridLayout(1));
@@ -179,6 +192,10 @@ public class BookMenu {
 
             Button deleteButton = new Button("Delete", () -> {
                 Book bookToDelete = bookService.findBookByIsbn(bookIsbn.getText());
+                Loan loan = loanService.findByBook(bookToDelete);
+                if (loan != null) {
+                    loanService.zeturn(loan);
+                }
                 bookService.deleteBook(bookToDelete);
                 deleteBookWindow.close();
                 searchWindow.close();

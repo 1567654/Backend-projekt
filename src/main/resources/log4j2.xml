@@ -6,11 +6,11 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG"/>
-        <!-- <Logger name="org.springframework.orm.hibernate3.HibernateTransactionManager" level="DEBUG"/>  -->
-        <!--  <Logger name="org.springframework.orm.jpa.JpaTransactionManager" level="DEBUG"/>  -->
-        <Root level="fatal">
+        <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
+        <Logger name="se.yrgo" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
     </Loggers>
 </Configuration>

@@ -2,6 +2,7 @@ package se.yrgo.data;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.domain.Book;
 import se.yrgo.exceptions.NonExistantBookException;
 
@@ -11,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class BookDaoJPAImpl implements BookDao {
+public class BookDaoImpl implements BookDao {
     @PersistenceContext
     private EntityManager em;
 
@@ -20,9 +21,10 @@ public class BookDaoJPAImpl implements BookDao {
         em.persist(book);
     }
 
-    @Override
+    @Transactional
     public void delete(Book book) {
-        em.remove(book);
+        Book managedBook = em.merge(book);
+        em.remove(managedBook);
     }
 
     @Override
