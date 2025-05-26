@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/data/CustomerDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/data/LoanDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/data/LoanDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +77,8 @@
       <workItem from="1748110461973" duration="14569000" />
       <workItem from="1748245136138" duration="2772000" />
       <workItem from="1748249394452" duration="8180000" />
+      <workItem from="1748258930819" duration="43000" />
+      <workItem from="1748268503870" duration="2314000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,13 @@
 package se.yrgo.data;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.domain.Book;
 import se.yrgo.domain.Customer;
 import se.yrgo.domain.Loan;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -21,8 +23,10 @@ public class LoanDaoImpl implements LoanDao {
     }
 
     @Override
+    @Transactional
     public void zeturn(Loan loan) {
-        em.remove(loan);
+        Loan managedLoan = em.merge(loan);
+        em.remove(managedLoan);
     }
 
     @Override

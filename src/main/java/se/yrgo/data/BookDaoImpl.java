@@ -1,6 +1,7 @@
 package se.yrgo.data;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.domain.Book;
 
 import javax.persistence.EntityManager;
@@ -18,9 +19,10 @@ public class BookDaoImpl implements BookDao {
         em.persist(book);
     }
 
-    @Override
+    @Transactional
     public void delete(Book book) {
-        em.remove(book);
+        Book managedBook = em.merge(book);
+        em.remove(managedBook);
     }
 
     @Override
