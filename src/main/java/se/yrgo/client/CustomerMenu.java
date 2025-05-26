@@ -37,7 +37,17 @@ public class CustomerMenu {
         createCustomerPanel.addComponent(cancelButton);
 
         createButton.addListener(button -> {
-            Customer newCustomer = new Customer(name.getText(), email.getText());
+            String enteredEmail = email.getText();
+            String enteredName = name.getText();
+            if (isNullOrEmpty(enteredName)) {
+                MessageDialog.showMessageDialog(textGUI, "Invalid input", "Name cannot be empty");
+                return;
+            }
+            if (isNullOrEmpty(enteredEmail) || !enteredEmail.contains("@")) {
+                MessageDialog.showMessageDialog(textGUI, "Invalid email", "Email must contain '@'");
+                return;
+            }
+            Customer newCustomer = new Customer(enteredName, enteredEmail);
             customerService.newCustomer(newCustomer);
             createCustomerWindow.close();
         });
