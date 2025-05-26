@@ -14,7 +14,6 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-
     <!-- Transaction Manager -->
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager"
@@ -25,8 +24,7 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value
-                ="jdbc:hsqldb:file:database.dat;shutdown=true"/>
+        <property name="url" value="jdbc:hsqldb:file:database.dat;shutdown=true"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
@@ -58,22 +56,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--  Tells spring to search for AOP annotations -->
     <aop:aspectj-autoproxy/>
-
-    <!-- Transaction Configuration -->
     <tx:annotation-driven/>
     <context:component-scan base-package="se.yrgo"/>
-
-    <!-- PerformanceTimingAdvice bean -->
-    <bean id="performanceTimingAdvice" class="se.yrgo.advice.PerformanceTimingAdvice"/>
-
-    <!-- AOP configuration -->
-    <aop:config>
-        <aop:aspect ref="performanceTimingAdvice">
-            <aop:around method="performanceTimingMeasurement"
-                        pointcut="execution(* se.yrgo.service..*(..)) || execution(* se.yrgo.data..*(..))"/>
-        </aop:aspect>
-    </aop:config>
 </beans>
-

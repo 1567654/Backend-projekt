@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class PerformanceTimingAdvice {
+    @Around("execution(* se.yrgo.service..*(..)) || execution(* se.yrgo.data..*(..))")
     public Object performanceTimingMeasurement(ProceedingJoinPoint jp) throws Throwable {
         long start = System.nanoTime();
         Object result = jp.proceed();
