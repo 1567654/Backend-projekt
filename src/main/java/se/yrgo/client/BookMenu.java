@@ -75,7 +75,12 @@ public class BookMenu {
         searchPanel.addComponent(backButton);
 
         findButton.addListener(button -> {
-            Book bookByIsbn = bookService.findBookByIsbn(bookIsbn.getText());
+            Book bookByIsbn = null;
+            for (Book b : bookService.getBooks()) {
+                if (b.getIsbn().equals(bookIsbn.getText())) {
+                    bookByIsbn = b;
+                }
+            }
 
             if (bookByIsbn == null) {
                 MessageDialog.showMessageDialog(textGUI, "Book Not Found", "No book found with the given ISBN.");
@@ -118,22 +123,34 @@ public class BookMenu {
             updateBookPanel.addComponent(new EmptySpace(new TerminalSize(10, 10)));
 
             Button updateButton = new Button("Update", () -> {
-                Book existingBook = bookService.findBookByIsbn(bookIsbn.getText());
-                if (!isNullOrEmpty(title.getText())) {
-                    existingBook.setTitle(title.getText());
-                }
-                if (!isNullOrEmpty(author.getText())) {
-                    existingBook.setAuthor(author.getText());
-                }
-                if (!isNullOrEmpty(isbn.getText())) {
-                    String newIsbn = isbn.getText();
-                    for (Book book : bookService.getBooks()) {
-                        if (book.getIsbn().equals(newIsbn)) {
-                            MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
-                            return;
-                        }
+                Book existingBook = null;
+                for (Book b : bookService.getBooks()) {
+                    if (b.getIsbn().equals(bookIsbn.getText())) {
+                        existingBook = b;
                     }
-                    existingBook.setIsbn(newIsbn);
+                }
+                if (existingBook == null) {
+                    MessageDialog.showMessageDialog(textGUI, "Error", "Book Not Found.");
+                }
+
+                if (existingBook != null) {
+                    if (!isNullOrEmpty(title.getText())) {
+                        existingBook.setTitle(title.getText());
+                    }
+                    if (!isNullOrEmpty(author.getText())) {
+                        existingBook.setAuthor(author.getText());
+                    }
+                    if (!isNullOrEmpty(isbn.getText())) {
+                        String newIsbn = isbn.getText();
+                        for (Book book : bookService.getBooks()) {
+                            if (book.getIsbn().equals(newIsbn)) {
+                                MessageDialog.showMessageDialog(textGUI, "Duplicate ISBN", "A book with this ISBN already exists.");
+                                return;
+                            }
+                        }
+                        existingBook.setIsbn(newIsbn);
+                }
+
                 }
                 bookService.updateBook(existingBook);
                 updateBookWindow.close();
@@ -169,14 +186,19 @@ public class BookMenu {
         searchPanel.addComponent(backButton);
 
         findButton.addListener(button -> {
-            Book bookByIsbn = bookService.findBookByIsbn(bookIsbn.getText());
+            Book bookByIsbn = null;
+            for (Book b : bookService.getBooks()) {
+                if (b.getIsbn().equals(bookIsbn.getText())) {
+                    bookByIsbn = b;
+                }
+            }
 
             if (bookByIsbn == null) {
                 MessageDialog.showMessageDialog(textGUI, "Book Not Found", "No book found with the given ISBN.");
                 return;
             }
 
-            Table<String> table = new Table("Title", "Author", "ISBN");
+            Table<String> table = new Table<>("Title", "Author", "ISBN");
             table.getTableModel().addRow(bookByIsbn.getTitle(), bookByIsbn.getAuthor(), bookByIsbn.getIsbn());
 
             BasicWindow deleteBookWindow = new BasicWindow("Delete Book");
@@ -194,7 +216,12 @@ public class BookMenu {
             deleteBookPanel.addComponent(new Label(bookByIsbn.getIsbn()));
 
             Button deleteButton = new Button("Delete", () -> {
-                Book bookToDelete = bookService.findBookByIsbn(bookIsbn.getText());
+                Book bookToDelete = null;
+                for (Book b : bookService.getBooks()) {
+                    if (b.getIsbn().equals(bookIsbn.getText())) {
+                        bookToDelete = b;
+                    }
+                }
                 for (Loan loan : loanService.getAllLoans()) {
                     if (loan.getBook().equals(bookToDelete)) {
                         loanService.zeturn(loan);
@@ -242,6 +269,7 @@ public class BookMenu {
 
             if (bookByIsbn == null) {
                 MessageDialog.showMessageDialog(textGUI, "Book Not Found", "No book found with the given ISBN.");
+                return;
             }
 
             Table<String> table = new Table<>("Title", "Author", "ISBN");
