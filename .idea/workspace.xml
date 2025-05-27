@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c2278cd7-51f1-48ef-8fe0-7b178db38950" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/CustomerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/client/LoanMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/yrgo/domain/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +39,10 @@
   "keyToString": {
     "Application.Client.executor": "Run",
     "JUnit.BookTest.executor": "Run",
+    "JUnit.BookTest.testUpdateBook.executor": "Run",
+    "JUnit.CustomerTest.executor": "Run",
     "JUnit.LoanTest.executor": "Run",
+    "Maven.hibernate [clean].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -49,7 +56,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.LoanTest">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="se.yrgo.client.Client" />
       <module name="library" />
@@ -126,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Client" />
+        <item itemvalue="JUnit.BookTest" />
         <item itemvalue="JUnit.LoanTest" />
         <item itemvalue="JUnit.CustomerTest" />
-        <item itemvalue="JUnit.BookTest" />
         <item itemvalue="JUnit.BookTest.testUpdateBook" />
-        <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
   </component>
@@ -197,9 +204,9 @@
           <option name="timeStamp" value="3" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/se/yrgo/client/BookMenu.java</url>
-          <line>196</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/test/java/se/yrgo/BookTest.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

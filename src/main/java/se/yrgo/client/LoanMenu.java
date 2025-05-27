@@ -12,6 +12,7 @@ import se.yrgo.service.CustomerService;
 import se.yrgo.service.LoanService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static se.yrgo.client.Utils.isNullOrEmpty;
@@ -35,10 +36,35 @@ public class LoanMenu {
         createLoanPanel.addComponent(cancelButton);
 
         Button createButton = new Button("Create", () -> {
-            Customer customer = customerService.findCustomerByEmail(customerEmail.getText());
-            Book book = bookService.findBookByIsbn(bookIsbn.getText());
+            Customer customer = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customer = c;
+                }
+            }
+            Book book = null;
+            for (Book b : bookService.getBooks()) {
+                if (b.getIsbn().equals(bookIsbn.getText())) {
+                    book = b;
+                }
+            }
 
-            if (customer == null || book == null) {
+            boolean cexist = false;
+            boolean bexist = false;
+
+            for (Customer c : customerService.getCustomers()) {
+                if (c.equals(customer)) {
+                    cexist = true;
+                    break;
+                }
+            }
+            for (Book b : bookService.getBooks()) {
+                if (b.equals(book)) {
+                    bexist = true;
+                    break;
+                }
+            }
+            if (!cexist || !bexist) {
                 MessageDialog.showMessageDialog(textGUI, "Error", "Customer or Book not found.");
                 return;
             }
@@ -96,12 +122,22 @@ public class LoanMenu {
         searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
-            Customer customer = customerService.findCustomerByEmail(customerEmail.getText());
+            Customer customer = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customer = c;
+                }
+            }
             if (customer == null) {
                 MessageDialog.showMessageDialog(textGUI, "Customer Not Found", "No customer found with the given email.");
                 return;
             }
-            List<Loan> foundLoans = loanService.findLoansByCustomer(customer);
+            List<Loan> foundLoans = new ArrayList<>();
+            for (Loan l : loanService.getAllLoans()) {
+                if (l.getCustomer().equals(customer)) {
+                    foundLoans.add(l);
+                }
+            }
             if (foundLoans.isEmpty()) {
                 MessageDialog.showMessageDialog(textGUI, "No loans found", "No loans for the given email.");
                 return;
@@ -141,14 +177,24 @@ public class LoanMenu {
         searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
-            Customer customer = customerService.findCustomerByEmail(customerEmail.getText());
+            Customer customer = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customer = c;
+                }
+            }
             if (customer == null) {
                 MessageDialog.showMessageDialog(textGUI, "Customer Not Found", "No customer found with the given email.");
                 return;
             }
 
-            List<Loan> foundLoans = loanService.findLoansByCustomer(customer);
-            if (foundLoans == null) {
+            List<Loan> foundLoans = new ArrayList<>();
+            for (Loan l : loanService.getAllLoans()) {
+                if (l.getCustomer().equals(customer)) {
+                    foundLoans.add(l);
+                }
+            }
+            if (foundLoans.isEmpty()) {
                 MessageDialog.showMessageDialog(textGUI, "No loans found", "No loans for the given email.");
                 return;
             }
@@ -237,10 +283,22 @@ public class LoanMenu {
         searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
-            Customer customer = customerService.findCustomerByEmail(customerEmail.getText());
-            List<Loan> foundLoans = loanService.findLoansByCustomer(customer);
+            Customer customer = null;
+            List<Loan> foundLoans = new ArrayList<>();
 
-            if (foundLoans == null) {
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customer = c;
+                }
+            }
+
+            for (Loan l : loanService.getAllLoans()) {
+                if (l.getCustomer().equals(customer)) {
+                    foundLoans.add(l);
+                }
+            }
+
+            if (foundLoans.isEmpty()) {
                 MessageDialog.showMessageDialog(textGUI, "No loans found", "No loans for the given email.");
                 return;
             }

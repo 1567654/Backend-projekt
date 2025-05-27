@@ -70,7 +70,12 @@ public class CustomerMenu {
         searchPanel.addComponent(findButton);
 
         findButton.addListener(button -> {
-            Customer foundCustomer = customerService.findCustomerByEmail(customerEmail.getText());
+            Customer foundCustomer = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    foundCustomer = c;
+                }
+            }
 
             if (foundCustomer == null) {
                 MessageDialog.showMessageDialog(textGUI, "Not Found", "No customer found with the given email.");
@@ -102,8 +107,18 @@ public class CustomerMenu {
 
             updateCustomerPanel.addComponent(new EmptySpace(new TerminalSize(10, 10)));
 
+            Customer finalFoundCustomer = foundCustomer;
             Button updateButton = new Button("Update", () -> {
-                Customer updatedCustomer = customerService.findCustomerByEmail(foundCustomer.getEmail());
+                Customer updatedCustomer = null;
+                for (Customer c : customerService.getCustomers()) {
+                    if (c.getEmail().equals(finalFoundCustomer.getEmail())) {
+                        updatedCustomer = c;
+                    }
+                }
+                if (updatedCustomer == null) {
+                    MessageDialog.showMessageDialog(textGUI, "Customer Not Found", "No customer found with given email.");
+                    return;
+                }
                 if (!isNullOrEmpty(name.getText())) {
                     updatedCustomer.setName(name.getText());
                 }
@@ -143,7 +158,12 @@ public class CustomerMenu {
         searchPanel.addComponent(backButton);
 
         findButton.addListener(button -> {
-            Customer customerByEmail = customerService.findCustomerByEmail(customerEmail.getText());
+            Customer customerByEmail = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customerByEmail = c;
+                }
+            }
 
             if (customerByEmail == null) {
                 MessageDialog.showMessageDialog(textGUI, "Customer not found", "No customer found with the given email");
@@ -165,7 +185,12 @@ public class CustomerMenu {
             deleteCustomerPanel.addComponent(new Label(customerByEmail.getEmail()));
 
             Button deleteButton = new Button("Delete", () -> {
-                Customer customerToDelete = customerService.findCustomerByEmail(customerEmail.getText());
+                Customer customerToDelete = null;
+                for (Customer c : customerService.getCustomers()) {
+                    if (c.getEmail().equals(customerEmail.getText())) {
+                        customerToDelete = c;
+                    }
+                }
 
                 List<Loan> loans = loanService.findLoansByCustomer(customerToDelete);
                 if (loans != null && !loans.isEmpty()) {
@@ -205,7 +230,12 @@ public class CustomerMenu {
         searchPanel.addComponent(backButton);
 
         findButton.addListener(button -> {
-            Customer customerByEmail = customerService.findCustomerByEmail(customerEmail.getText());
+            Customer customerByEmail = null;
+            for (Customer c : customerService.getCustomers()) {
+                if (c.getEmail().equals(customerEmail.getText())) {
+                    customerByEmail = c;
+                }
+            }
 
             if (customerByEmail == null) {
                 MessageDialog.showMessageDialog(textGUI, "Customer not found", "No customer found with the given email");
