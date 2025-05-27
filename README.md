@@ -1,1 +1,1 @@
-Projektet körs genom IDE, själva applikationen körs genom Client klassen. Testerna kan köras med Maven eller genom att köra test-klasserna individiuellt. 
+Kan behövas att ta bort database.dat filer om problem uppstår. Projektet körs genom IDE, själva applikationen körs genom Client klassen. Testerna kan köras med Maven eller genom att köra test-klasserna individiuellt. 
